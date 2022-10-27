@@ -5,6 +5,7 @@ from rclpy.node import Node
 import speech_recognition as sr
 from custom_if.srv import SendSentence
 from functools import partial
+import time
 
 
 ### Node class
@@ -21,6 +22,8 @@ class SpeechToText(Node):
 	## Listen and write
 	def listen_to_user(self):
 
+		self.call_nlu("Welcome")
+
 		# Inner loop
 		while True:
 			with sr.Microphone() as source:
@@ -28,12 +31,12 @@ class SpeechToText(Node):
 				audio = self.stt.listen(source)
 
 			try:
-				sentence = "{0}".format(self.stt.recognize_google(audio, language="it-IT"))
+				sentence = "{0}".format(self.stt.recognize_google(audio, language="en-US"))
 				if 'Marvin' in sentence.split(" "):
 					self.call_nlu(sentence)
 
 			except sr.UnknownValueError:
-				self.get_logger().warn("Sorry, I cannot understand your request.")
+				self.get_logger().warn("Waiting for a command.")
 				
 			except sr.RequestError as e:
 				self.get_logger().error("STT Error; {0}".format(e))

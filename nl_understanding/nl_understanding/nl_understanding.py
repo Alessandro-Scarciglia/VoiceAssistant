@@ -18,6 +18,9 @@ class NLUnderstanding(Node):
 
 	# Server callbacks
 	def callback_command(self, request, response):
+		
+		# So far the node simply writes down what has been said.
+		# TODO: Implement here a link to all possible actions.
 		self.get_logger().info(f"{request.sentence}")
 		response.done = True
 		return response

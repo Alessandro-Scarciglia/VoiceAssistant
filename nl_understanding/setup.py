@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        "nlu = nl_understanding.nl_understanding:main"
+        "nlu = nl_understanding.nl_understanding:main",
+        "client = nl_understanding.tcp_client:main"
         ],
     },
 )

@@ -27,11 +27,11 @@ class SpeechToText(Node):
 		# Inner loop
 		while True:
 			with sr.Microphone() as source:
-				self.stt.adjust_for_ambient_noise(source)
+				self.stt.adjust_for_ambient_noise(source, duration=0.2)
 				audio = self.stt.listen(source)
 
 			try:
-				sentence = "{0}".format(self.stt.recognize_google(audio, language="en-US"))
+				sentence = "{0}".format(self.stt.recognize_google(audio, language="it-IT"))
 				if 'Marvin' in sentence.split(" "):
 					self.call_nlu(sentence)
 
